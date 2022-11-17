@@ -5,58 +5,63 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Check in App</title>
+    <link rel="stylesheet" href="./assets/main.css">
 </head>
 
 <body>
-    <canvas id="canvas" width="500" height="500"></canvas>
-    <div id="barcodes"></div>
+    <div class="fixed-nav" style="display: none;">
+        <p>IP:
+        <span id="gfg"></span></p>
+    </div>
+    <div class="container" style="text-align: center">
 
+        
+        <canvas id="canvas" width="360" height="200" style="border: 1px solid #333;"></canvas>
+
+        <div class="content">
+            <div id="barcodes">1</div>
+            <button onclick="addToResults()">INSERT</button>
+        </div>
+        <h4 style="text-align: center">LIST RESULTS</h4>
+
+        <table class="placeholder-table" style="margin: 0 auto; text-align: center;">
+            <tr>
+                <td style="width: 33%;"><b>Timestamp</b></td>
+                <td style="width: 33%;"><b>Code</b></td>
+                <td style="width: 33%;"><b>User IP</b></td>
+            </tr>
+        </table>
+        <hr>
+        <div class="data-exported">
+            <table id="res-list" style="margin: 0 auto;">
+                <tr style="display: none;">
+                    <td><b>Timestamp</b></td>
+                    <td><b>Code</b></td>
+                </tr>
+            </table>
+        </div>
+
+        <hr>
+        <button onclick="download_table_as_csv('res-list')" id="exportBtn">Download As CSV</button>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
     <script>
-        navigator.mediaDevices.enumerateDevices().then((devices) => {
-            let id = devices.filter((device) => device.kind === "videoinput").slice(-1).pop().deviceId;
-            let constrains = { video: { optional: [{ sourceId: id }] } };
 
-            navigator.mediaDevices.getUserMedia(constrains).then((stream) => {
-                let capturer = new ImageCapture(stream.getVideoTracks()[0]);
-                step(capturer);
-            });
-        });
+        /* Add "https://api.ipify.org?format=json" statement
+                   this will communicate with the ipify servers in
+                   order to retrieve the IP address $.getJSON will
+                   load JSON-encoded data from the server using a
+                   GET HTTP request */
 
-        function step(capturer) {
-            capturer.grabFrame().then((image) => {
-                let canvas = document.getElementById("canvas");
-                let ctx = canvas.getContext("2d");
-                ctx.drawImage(image, 0, 0, image.width, image.height, 0, 0, canvas.width, canvas.height);
-                const barcodeDetector = new BarcodeDetector({
-                    formats: [
-                        'aztec',
-                        'code_128',
-                        'code_39',
-                        'code_93',
-                        'codabar',
-                        'data_matrix',
-                        'ean_13',
-                        'ean_8',
-                        'itf',
-                        'pdf417',
-                        'qr_code',
-                        'upc_a',
-                        'upc_e',
-                    ],
-                });
-                
-                barcodeDetector.detect(image)
-                    .then(barcodes => {
-                        document.getElementById("barcodes").innerHTML = barcodes.map(barcode => barcode.rawValue).join(', ');
-                        step(capturer);
-                    })
-                    .catch((e) => {
-                        console.error(e);
-                    });
-            });
-        }
+        $.getJSON("https://api.ipify.org?format=json", function (data) {
+
+            // Setting text of element P with id gfg
+            $("#gfg").html(data.ip);
+        })
     </script>
+    <script src="./assets/main.js"></script>
 </body>
 
 </html>
