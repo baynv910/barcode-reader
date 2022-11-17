@@ -33,6 +33,7 @@ const addToResults = (barcodes) => {
 
         let resList = document.querySelector('#res-list').appendChild(node);
     }
+    step(capturer);
 
 }
 
@@ -63,7 +64,7 @@ function step(capturer) {
             .then(barcodes => {
                 //document.getElementById("barcodes").innerHTML = barcodes.map(barcode => barcode.rawValue).join(', ');
                 addToResults(barcodes.map(barcode => barcode.rawValue).join(', '));
-                step(capturer);
+                //step(capturer);
             })
             .catch((e) => {
                 console.error(e);
