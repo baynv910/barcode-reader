@@ -8,31 +8,27 @@ navigator.mediaDevices.enumerateDevices().then((devices) => {
     });
 });
 
+
 const addToResults = (barcodes) => {
     //barcodes = document.querySelector('#barcodes').innerText;
 
-    // check if barcode has been scanned?
-    if (barcodes == "") {
-        console.log("No scanned barcode found!");
-    }
-    else {
-        let today = new Date();
-        let dateTime = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear() +' '+ today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        const node = document.createElement("tr");
-        const nodeChild1 = document.createElement("td");
-        nodeChild1.appendChild(document.createTextNode(dateTime));
-        node.appendChild(nodeChild1);
+    let today = new Date();
+    let dateTime = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear() +' '+ today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    const node = document.createElement("tr");
+    const nodeChild1 = document.createElement("td");
+    nodeChild1.appendChild(document.createTextNode(dateTime));
+    node.appendChild(nodeChild1);
 
-        const nodeChild2 = document.createElement("td");
-        nodeChild2.appendChild(document.createTextNode(barcodes));
-        node.appendChild(nodeChild2);
+    const nodeChild2 = document.createElement("td");
+    nodeChild2.appendChild(document.createTextNode(barcodes));
+    node.appendChild(nodeChild2);
 
-        const nodeChild3 = document.createElement("td");
-        nodeChild3.appendChild(document.createTextNode(document.querySelector('#gfg').innerText));
-        node.appendChild(nodeChild3);
+    const nodeChild3 = document.createElement("td");
+    nodeChild3.appendChild(document.createTextNode(document.querySelector('#gfg').innerText));
+    node.appendChild(nodeChild3);
 
-        document.querySelector('#res-list').appendChild(node);
-    }
+    document.querySelector('#res-list').appendChild(node);
+
     step(capturer);
 
 }
@@ -65,7 +61,7 @@ function step(capturer) {
                 let code = barcodes.map(barcode => barcode.rawValue).join(', ');
                 if (code != "")
                 {
-                    alert("Code founded: ", code);
+                    alert("Code founded: " + code);
                     addToResults(code);
                 }
                 
