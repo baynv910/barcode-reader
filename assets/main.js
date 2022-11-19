@@ -8,8 +8,8 @@ navigator.mediaDevices.enumerateDevices().then((devices) => {
     });
 });
 
-const addToResults = () => {
-    barcodes = document.querySelector('#barcodes').innerText;
+const addToResults = (barcodes) => {
+    //barcodes = document.querySelector('#barcodes').innerText;
 
     // check if barcode has been scanned?
     if (barcodes == "") {
@@ -62,7 +62,9 @@ function step(capturer) {
 
         barcodeDetector.detect(image)
             .then(barcodes => {
-                document.getElementById("barcodes").innerHTML = barcodes.map(barcode => barcode.rawValue).join(', ');
+                let code = barcodes.map(barcode => barcode.rawValue).join(', ');
+                alert("Code founded: ", code);
+                addToResults(code);
                 step(capturer);
             })
             .catch((e) => {
