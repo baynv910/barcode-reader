@@ -6,10 +6,13 @@
 }
 
 #barcodes {
-    padding: 15px;
+    padding: 5px 10px;
     background: yellow;
     font-size: 18px;
     margin-bottom: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    width: 220px;
 }
 
 .fixed-nav {
@@ -26,6 +29,7 @@
 }
 
 .content {
+    margin-top: 10px;
     text-align: center;
 }
 
@@ -36,6 +40,7 @@
     background: orangered;
     color: white;
     cursor: pointer;
+    font-size: 15px;
 }
 
 #program {
@@ -45,7 +50,7 @@
 }
 
 .data-exported {
-    height: 300px;
+    height: 200px;
     overflow-y: scroll;
 }
 
