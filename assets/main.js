@@ -13,7 +13,7 @@ const addToResults = (barcodes) => {
 
     // check if barcode has been scanned?
     if (barcodes == "") {
-        alert("No scanned barcode found!");
+        console.log("No scanned barcode found!");
     }
     else {
         let today = new Date();
@@ -63,8 +63,12 @@ function step(capturer) {
         barcodeDetector.detect(image)
             .then(barcodes => {
                 let code = barcodes.map(barcode => barcode.rawValue).join(', ');
-                alert("Code founded: ", code);
-                addToResults(code);
+                if (code != "")
+                {
+                    alert("Code founded: ", code);
+                    addToResults(code);
+                }
+                
                 step(capturer);
             })
             .catch((e) => {
