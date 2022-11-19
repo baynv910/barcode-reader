@@ -62,8 +62,7 @@ function step(capturer) {
 
         barcodeDetector.detect(image)
             .then(barcodes => {
-                //document.getElementById("barcodes").innerHTML = barcodes.map(barcode => barcode.rawValue).join(', ');
-                addToResults(barcodes.map(barcode => barcode.rawValue).join(', '));
+                document.getElementById("barcodes").innerHTML = barcodes.map(barcode => barcode.rawValue).join(', ');
                 step(capturer);
             })
             .catch((e) => {
