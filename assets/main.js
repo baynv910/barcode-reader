@@ -8,8 +8,8 @@ navigator.mediaDevices.enumerateDevices().then((devices) => {
     });
 });
 
-const addToResults = (barcodes) => {
-    //barcodes = document.querySelector('#barcodes').innerText;
+const addToResults = () => {
+    barcodes = document.querySelector('#barcodes').innerText;
 
     // check if barcode has been scanned?
     if (barcodes == "") {
@@ -31,7 +31,7 @@ const addToResults = (barcodes) => {
         nodeChild3.appendChild(document.createTextNode(document.querySelector('#gfg').innerText));
         node.appendChild(nodeChild3);
 
-        let resList = document.querySelector('#res-list').appendChild(node);
+        document.querySelector('#res-list').appendChild(node);
     }
     step(capturer);
 
